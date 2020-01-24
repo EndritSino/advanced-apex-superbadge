@@ -64,5 +64,27 @@ private class OrderTests {
         }
     }
 
-    @isTest private static void OrderExtension_UnitTest(){}
+    @isTest private static void OrderExtension_UnitTest(){
+
+        PageReference pageRef = Page.OrderEdit;
+        Test.setCurrentPage(pageRef);
+        Order o = [SELECT Id, Status FROM Order LIMIT 1];
+
+        ApexPages.StandardController stdcontroller = new ApexPages.StandardController(o);
+        OrderExtension ext = new OrderExtension(stdcontroller);
+
+        System.assertEquals(5, ext.orderItemList.size());
+        ext.OnFieldChange();
+        ext.SelectFamily();
+        ext.Save();
+        ext.First();
+        ext.Next();
+        ext.Previous();
+        ext.Last();
+        ext.GetHasPrevious();
+        ext.GetHasNext();
+        ext.GetTotalPages();
+        ext.GetPageNumber();
+        List<SelectOption> options = ext.GetFamilyOptions();
+    }
 }

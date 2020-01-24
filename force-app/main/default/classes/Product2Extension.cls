@@ -26,13 +26,19 @@ public class Product2Extension {
             for (ProductWrapper pw: productsToInsert) {
                 if ( String.isNotBlank(pw.productRecord.Name)
                         && String.isNotBlank(pw.productRecord.Family)
-                            && pw.productRecord.isActive
-                                && pw.productRecord.Initial_Inventory__c != null
-                                    && pw.productRecord.Initial_Inventory__c != 0
+                            && pw.productRecord.Initial_Inventory__c != null
+                                && pw.productRecord.Initial_Inventory__c != 0
+                                    && pw.pricebookEntryRecord.isActive
                                         && pw.pricebookEntryRecord.UnitPrice != null
                                             && pw.pricebookEntryRecord.UnitPrice != 0) {
+
                     soProduct2ToInsertList.add(pw.productRecord);
                 }
+            }
+
+            if (soProduct2ToInsertList.size() == 0) {
+                apexPages.addMessage(new ApexPages.message(ApexPages.Severity.ERROR, 'No products found to insert!'));
+                return null;
             }
 
             insert soProduct2ToInsertList;
@@ -51,6 +57,7 @@ public class Product2Extension {
             insert soPricebookEntriesToInsertList;
 
             //If successful clear the list and display an informational message
+            System.debug(productsToInsert.size()+' Inserted');
             apexPages.addMessage(new ApexPages.message(ApexPages.Severity.INFO,productsToInsert.size()+' Inserted'));
             productsToInsert.clear();   //Do not remove
             addRows();  //Do not remove
