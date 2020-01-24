@@ -35,11 +35,6 @@ public class Product2Extension {
                 }
             }
 
-            if (soProduct2ToInsertList.size() == 0) {
-                apexPages.addMessage(new ApexPages.message(ApexPages.Severity.ERROR, 'No products found to insert!'));
-                return null;
-            }
-
             insert soProduct2ToInsertList;
 
             for (ProductWrapper pw: productsToInsert) {

@@ -1,7 +1,11 @@
 <apex:page standardController="Order" extensions="OrderExtension" >
+
     <apex:sectionHeader title="{!$ObjectType.Order.Label} Edit" subtitle="{!IF(Order.Id == null,'New '+$ObjectType.Order.Label,Order.Name)}" />
+
     <apex:form id="form" >
-        <apex:pageMessages id="pageMessages" />
+
+    <apex:pageMessages id="pageMessages" />
+
         <apex:pageBlock title="Order Details" mode="Edit">
             <apex:pageBlockButtons >
                 <apex:commandButton value="Save" action="{!save}" />
@@ -14,8 +18,10 @@
                 <apex:inputField value="{!orderRecord.Status}" />
             </apex:pageBlockSection>
         </apex:pageBlock>
+
         <apex:actionRegion >
             <apex:pageBlock title="Summary" id="summary" >
+
                 <apex:pageBlockSection columns="2" >
                     <apex:pageMessage severity="Info" summary="No Products have been selected" rendered="{!pieData == null}" />
                     <apex:outputPanel rendered="{!pieData != null}" >
@@ -30,6 +36,7 @@
                     </apex:pageBlockSectionItem>
                 </apex:pageBlockSection>
             </apex:pageBlock>
+
             <apex:pageBlock title="{!$ObjectType.Product2.Label}" id="orderItemTable" >
                 <apex:pageBlockSection >
                     <apex:pageBlockSectionItem >

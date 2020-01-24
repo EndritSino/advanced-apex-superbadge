@@ -47,17 +47,25 @@ private class Product2Tests {
 
     @isTest private static void Product2Trigger_UnitTest() {
 
-        Product2 newProduct = TestDataFactory.constructProducts(1).get(1);
+        Integer quantityOrderedBefore = 20;
+
+        Product2 newProduct = TestDataFactory.constructProducts(1).get(0);
+        newProduct.Quantity_Ordered__c = quantityOrderedBefore;
         insert newProduct;
 
         CollaborationGroup c = TestDataFactory.ConstructCollaborationGroup();
         insert c;
 
+        Integer quantityOrderedAfter = 100;
+
         Test.startTest();
 
-        newProduct.Quantity_Ordered__c = 96;
+        newProduct.Quantity_Ordered__c = quantityOrderedAfter;
         update newProduct;
 
         Test.stopTest();
+
+        Product2 prodAfter = [SELECT Quantity_Ordered__c FROM Product2 WHERE Id = :newProduct.Id];
+        System.assertEquals(quantityOrderedAfter, prodAfter.Quantity_Ordered__c);
     }
 }
