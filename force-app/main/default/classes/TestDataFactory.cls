@@ -107,4 +107,9 @@ public class TestDataFactory {
 
         insert constructOrderItems(cnt, pbes, orders);
     }
+
+    public static void VerifyQuantityOrdered(Product2 originalProduct, Product2 updatedProduct, Integer qtyOrdered){
+        Integer sumQuantity = Integer.valueOf(originalProduct.Quantity_Ordered__c) + qtyOrdered;
+        System.assertEquals(updatedProduct.Quantity_Ordered__c, sumQuantity);
+    }
 }
